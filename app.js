@@ -1,8 +1,20 @@
-const express = require('express')
+// const express = require('express')
+// const app = express()
 
-const app = express()
 
 
+// app.get('/users', (req, res) => {
+//   res.json([
+//     { id: 1, name: 'Alice' },
+//     { id: 2, name: 'Bob' }
+//   ]);
+// });
+
+
+
+
+const express = require('express');
+const app = express();
 
 app.get('/', (req, res) => {
     res.json({
@@ -20,6 +32,8 @@ app.get('/users', (req, res) => {
 });
 
 
-app.listen(8080, () => {
-    console.log('server running on port 8080')
-})
+// app.listen(8080, () => {
+//     console.log('server running on port 8080')
+// })
+
+module.exports = app;
