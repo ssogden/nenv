@@ -26,10 +26,4 @@ jobs:
       uses: docker/build-push-action@v7
       with:
         push: true
-        tags: user/app:latest
-    - name: Build and push
-      uses: docker/build-push-action@v7
-      with:
-        context: .
-        push: true
         tags: ssogden/nenv:latest
