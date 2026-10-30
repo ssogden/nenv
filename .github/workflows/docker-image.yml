@@ -10,9 +10,24 @@ permissions:
   id-token: write
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x, 24.x]
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Install Node.js dependencies
+      run: npm ci 
+    - name: Run tests
+      run: npm test 
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
     - uses: hadolint/hadolint-action@06be81baf89a55ffd0e24b8f04a4185738dd3387
