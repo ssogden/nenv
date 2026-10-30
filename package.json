@@ -1,0 +1,25 @@
+{
+  "name": "nenv",
+  "version": "1.0.0",
+  "description": "node demo code",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssogden/nenv.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ssogden/nenv/issues"
+  },
+  "homepage": "https://github.com/ssogden/nenv#readme",
+  "dependencies": {
+    "body-parser": "^2.4.0",
+    "express": "^5.3.0"
+  }
+}
