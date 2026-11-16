@@ -13,8 +13,8 @@ jobs:
 
     steps:
     - name: Pull Docker image
-      run: sudo docker pull ssogden/nenv:latest
+      run: docker pull ssogden/nenv:latest
     - name: Delete Old docker container
-      run: sudo docker rm -f nenv-container || true
+      run: docker rm -f nenv-container || true
     - name: Run Docker Container
-      run: sudo docker run -d -p 8080:8080 --name nenv-container ssogden/nenv
+      run: docker run -d -p 8080:8080 --name nenv-container ssogden/nenv
