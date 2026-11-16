@@ -1,5 +1,8 @@
 FROM node:24
 
+# Create env variable
+ENV environment default_env_value
+
 # Create app directory
 WORKDIR /usr/src/app
 
@@ -16,4 +19,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-CMD [ "node", "run.js" ]
+CMD [ "sh", "-c", "node run.js ${environment}" ]
