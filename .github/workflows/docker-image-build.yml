@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: docker-image-build
 
 on:
   push:
@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         node-version: [22, 24]
@@ -32,7 +32,7 @@ jobs:
       - name: Run tests
         run: npm test
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: test
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
