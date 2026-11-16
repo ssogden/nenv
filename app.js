@@ -29,4 +29,8 @@ app.get('/users', (req, res) => {
 //     console.log('server running on port 8080')
 // })
 
+const args = process.argv.slice(2);
+args.forEach((value, index) => {
+  console.log(index, value);
+});
 module.exports = app
