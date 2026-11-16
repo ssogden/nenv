@@ -7,14 +7,12 @@ on:
       - completed
 
 jobs:
-
   build:
     runs-on: self-hosted
-
     steps:
     - name: Pull Docker image
       run: docker pull ssogden/nenv:latest
     - name: Delete Old docker container
       run: docker rm -f nenv-container || true
     - name: Run Docker Container
-      run: docker run -d -p 8080:8080 --name nenv-container ssogden/nenv
+      run: docker run -d -p 8080:8090 --name nenv-container ssogden/nenv

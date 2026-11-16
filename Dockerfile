@@ -1,7 +1,7 @@
 FROM node:24
 
 # Create env variable
-ENV environment default_env_value
+ENV environment=default_env_value
 
 # Create app directory
 WORKDIR /usr/src/app
