@@ -1,6 +1,6 @@
 // app.js
-const node_env = process.env.NODE_ENV;
-console.log(`node_env is ${node_env}`);
+const release_id = process.env.RELEASE_ID;
+console.log(`release_id is ${release_id}`);
 
 const app_pool = process.env.APP_POOL;
 console.log(`app_pool is ${app_pool}`);
@@ -40,11 +40,10 @@ app.get('/healthz', (req, res) => {
   })
 })
 
-
-app.get('/env', (req, res) => {
+app.get('/release', (req, res) => {
   res.json({
     status: 200,
-    message: `${node_env}`
+    message: `${release_id}`
   })
 })
 
@@ -55,14 +54,11 @@ app.get('/pool', (req, res) => {
   })
 })
 
-// app.listen(8080, () => {
-//     console.log('server running on port 8080')
+// app.get('/env', (req, res) => {
+//   res.json([
+//     { app_pool: `${app_pool}` },
+//     { node_env: `${node_env}` }
+//   ])
 // })
-
-// const args = process.argv.slice(2);
-// args.forEach((value, index) => {
-//   console.log(index, value);
-// });
-
 
 module.exports = app

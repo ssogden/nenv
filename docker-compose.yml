@@ -1,70 +1,50 @@
 services:
-  nginx:
-    image: nginx:1.25-alpine
-    depends_on:
-      - app_blue
-      - app_green
-    ports:
-      - "8080:80"
-    environment:
-      # Controls which pool is primary (blue|green)
-      ACTIVE_POOL: ${ACTIVE_POOL:-blue}
-      # Envsubst template settings used by the official nginx entrypoint
-      NGINX_ENVSUBST_TEMPLATE_SUFFIX: ".template"
-      NGINX_ENVSUBST_OUTPUT_DIR: "/etc/nginx/conf.d"
-    volumes:
-      - ./nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
-      - ./nginx/10-active-pool.envsh:/docker-entrypoint.d/10-active-pool.envsh:ro
-      - ./nginx/render-and-reload.sh:/opt/nginx/render-and-reload.sh:ro
-      - ./logs:/var/log/nginx:rw
-    stop_signal: SIGQUIT
-
   app_blue:
     image: ${BLUE_IMAGE}
-    environment:
-      RELEASE_ID: ${RELEASE_ID_BLUE}
-      APP_POOL: blue
-      PORT: ${PORT:-3000}
+    container_name: app_blue
     ports:
-      - "8081:3000"
-    healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:${PORT:-3000}/healthz || exit 1"]
-      interval: 5s
-      timeout: 2s
-      retries: 3
-      start_period: 5s
+      - "8081:${PORT}"
+    environment:
+      - PORT=${PORT}
+      - RELEASE_ID=${RELEASE_ID_BLUE}
+      - APP_POOL=blue
+    networks:
+      - app-network
 
   app_green:
     image: ${GREEN_IMAGE}
-    environment:
-      RELEASE_ID: ${RELEASE_ID_GREEN}
-      APP_POOL: green
-      PORT: ${PORT:-3000}
+    container_name: app_green
     ports:
-      - "8082:3000"
-    healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:${PORT:-3000}/healthz || exit 1"]
-      interval: 5s
-      timeout: 2s
-      retries: 3
-      start_period: 5s
-  alert_watcher:
-    image: python:3.11-slim
-    depends_on:
-      - nginx
-    volumes:
-      - ./logs:/var/log/nginx:ro
-      - ./watcher:/watcher:rw
-    env_file:
-      - .env
+      - "8082:${PORT}"
     environment:
-      - LOG_PATH=/var/log/nginx/access.log
-      - OUTBOX_PATH=/watcher/outbox.log
-    command: ["sh", "-c", "pip install -r /watcher/requirements.txt && python /watcher/watcher.py"]
-    restart: unless-stopped
+      - PORT=${PORT}
+      - RELEASE_ID=${RELEASE_ID_GREEN}
+      - APP_POOL=green
     networks:
-      - default
+      - app-network
+
+  nginx:
+    image: nginx:1.25.3-alpine
+    container_name: nginx_proxy
+    ports:
+      - "8888:80"
+    environment:
+      # Pass variables for the template script
+      - PORT=${PORT}
+      - ACTIVE_POOL=${ACTIVE_POOL}
+    volumes:
+      # 1. Mount the local template to a path inside the container
+      - ./nginx/nginx.conf.template:/etc/nginx/templates/default.conf.template
+      # 2. Mount the nginx-init script
+      - ./nginx/nginx-init.sh:/nginx-init.sh
+      # 3. Override the default command to run the script
+    command: /bin/sh /nginx-init.sh
+    networks:
+      - app-network
+    depends_on:
+      - app_blue
+      - app_green
 
 networks:
-  default:
-    name: hngi13-stage2-net
+  app-network:
+    driver: bridge
