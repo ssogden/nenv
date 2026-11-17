@@ -113,5 +113,3 @@ curl -i http://[YOUR_SERVER_IP]:8000/release
 ---
 
 ### Additional Note
-
-I included a Bash `test-script` file you can use to test the setup after installing the needed tools and setting everything up.
