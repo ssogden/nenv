@@ -32,3 +32,6 @@ jobs:
     - name: Run Docker Container
       working-directory: ${{ github.workspace }}
       run: docker compose up -d
+    - name: Health check 
+      run: |
+        curl -i http://localhost:8000/healthz
