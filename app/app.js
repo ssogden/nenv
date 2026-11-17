@@ -36,7 +36,22 @@ app.get('/users', (req, res) => {
 app.get('/healthz', (req, res) => {
   res.json({
     status: 200,
-    message: 'I am alive!'
+    message: 'alive!'
+  })
+})
+
+
+app.get('/env', (req, res) => {
+  res.json({
+    status: 200,
+    message: `${node_env}`
+  })
+})
+
+app.get('/pool', (req, res) => {
+  res.json({
+    status: 200,
+    message: `${app_pool}`
   })
 })
 
