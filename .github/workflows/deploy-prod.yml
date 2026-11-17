@@ -17,7 +17,7 @@ jobs:
       RELEASE_ID_BLUE: foo
       RELEASE_ID_GREEN: bar
       PORT: 8080
-      PROXY: 8001
+      PROXY: 8000
     steps:
     - name: create environment file
       run: |
