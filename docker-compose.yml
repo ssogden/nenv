@@ -34,9 +34,9 @@ services:
       - ACTIVE_POOL=${ACTIVE_POOL}
     volumes:
       # 1. Mount the local template to a path inside the container
-      - ./nginx.conf.template:/etc/nginx/templates/default.conf.template
+      - ./nginx/nginx.conf.template:/etc/nginx/templates/default.conf.template
       # 2. Mount the nginx-init script
-      - ./nginx-init.sh:/nginx-init.sh
+      - ./nginx/nginx-init.sh:/nginx-init.sh
       # 3. Override the default command to run the script
     command: /bin/sh /nginx-init.sh
     networks:
