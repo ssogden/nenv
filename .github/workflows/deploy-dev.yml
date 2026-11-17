@@ -16,6 +16,9 @@ jobs:
       PORT: 8080
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+    - name: Run Docker Container
+      working-directory: ${{ github.workspace }}
+      run: docker compose down -v
     - name: create environment file
       run: |
         touch .env
