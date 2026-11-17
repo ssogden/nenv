@@ -9,8 +9,8 @@ jobs:
     runs-on: self-hosted
     env:
       BLUE_IMAGE: ssogden/nenv:sha-a31b2c4
-      GREEN_IMAGE: ssogden/nenv:latest
-      ACTIVE_POOL: green
+      GREEN_IMAGE: ssogden/nenv:sha-a31b2c4
+      ACTIVE_POOL: blue
       RELEASE_ID_BLUE: foo
       RELEASE_ID_GREEN: bar
       PORT: 8080
