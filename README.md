@@ -55,6 +55,19 @@ These instructions assume you are running on a remote cloud server (e.g., AWS EC
     docker compose up -d
     ```
 
+
+## Quickstart
+
+```bash
+# Start the stack
+docker compose up -d
+
+# Check services
+docker compose ps
+docker compose logs --no-color --tail 50 nginx
+docker compose logs --no-color --tail 50 alert_watcher
+```
+
 ## How to Test
 
 These tests should be run from your **local computer's terminal**, *not* from inside the cloud server.
