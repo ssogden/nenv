@@ -5,17 +5,6 @@ console.log(`release_id is ${release_id}`);
 const app_pool = process.env.APP_POOL;
 console.log(`app_pool is ${app_pool}`);
 
-
-// const express = require('express')
-// const app = express()
-
-// app.get('/users', (req, res) => {
-//   res.json([
-//     { id: 1, name: 'Alice' },
-//     { id: 2, name: 'Bob' }
-//   ]);
-// });
-
 const express = require('express')
 const app = express()
 
