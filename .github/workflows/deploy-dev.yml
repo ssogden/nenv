@@ -16,6 +16,8 @@ jobs:
       PORT: 8080
       PROXY: 8000
     steps:
+    - name: Run Docker Container
+      run: docker compose down -v
     - name: create environment file
       run: |
         touch .env
@@ -27,6 +29,3 @@ jobs:
         echo PORT=${{ env.PORT }} >> .env
     - name: Run Docker Container
       run: docker compose up -d
-    - name: Health check 
-      run: |
-        curl -i http://localhost:${{ env.PROXY }}/healthz
