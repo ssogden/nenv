@@ -28,4 +28,7 @@ jobs:
         echo RELEASE_ID_GREEN=${{ env.RELEASE_ID_GREEN }} >> .env
         echo PORT=${{ env.PORT }} >> .env
     - name: Run Docker Container
-      run: docker compose up -d
+      run: docker compose up -d --wait --wait-timeout 30
+    - name: Health check 
+      run: |
+        curl -i http://localhost:${{ env.PROXY }}/healthz
