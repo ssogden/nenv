@@ -11,8 +11,8 @@ jobs:
       BLUE_IMAGE: ssogden/nenv:sha-a31b2c4
       GREEN_IMAGE: ssogden/nenv:latest
       ACTIVE_POOL: blue
-      RELEASE_ID_BLUE: sha-a31b2c4
-      RELEASE_ID_GREEN: sha-a31b2c4
+      RELEASE_ID_BLUE: foo
+      RELEASE_ID_GREEN: bar
       PORT: 8080
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
