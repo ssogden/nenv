@@ -30,5 +30,3 @@ jobs:
     - name: Health check 
       run: |
         curl -i http://localhost:${{ env.PROXY }}/healthz
-    - name: Down Dev
-      run: docker compose down -v
