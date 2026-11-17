@@ -1,4 +1,4 @@
-name: CD Pipeline
+name: deploy-dev
 
 on:
   push:
@@ -15,13 +15,7 @@ jobs:
       RELEASE_ID_GREEN: bar
       PORT: 8080
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-    # - name: Pull Docker image
-    #   run: docker pull ssogden/nenv:latest
-    # - name: Delete Old docker container
-    #   run: docker rm -f nenv-container || true
     - name: create environment file
-      working-directory: ${{ github.workspace }}
       run: |
         touch .env
         echo BLUE_IMAGE=${{ env.BLUE_IMAGE }} >> .env
@@ -31,7 +25,6 @@ jobs:
         echo RELEASE_ID_GREEN=${{ env.RELEASE_ID_GREEN }} >> .env
         echo PORT=${{ env.PORT }} >> .env
     - name: Run Docker Container
-      working-directory: ${{ github.workspace }}
       run: docker compose up -d
     - name: Health check 
       run: |
