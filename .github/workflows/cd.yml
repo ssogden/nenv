@@ -14,4 +14,5 @@ jobs:
     # - name: Delete Old docker container
     #   run: docker rm -f nenv-container || true
     - name: Run Docker Container
+      working-directory: ${{ github.workspace }}
       run: docker compose up -d
