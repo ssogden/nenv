@@ -14,6 +14,7 @@ jobs:
       RELEASE_ID_BLUE: foo
       RELEASE_ID_GREEN: bar
       PORT: 8080
+      PROXY_PORT: 8000
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
     - name: Run Docker Container
@@ -33,8 +34,8 @@ jobs:
       run: docker compose up -d
     - name: Health check 
       run: |
-        curl -i http://localhost:${{ env.PORT }}/healthz
-        curl -i http://localhost:${{ env.PORT }}/pool
-    - name: Run Docker Container
+        curl -i http://localhost:${{ env.PROXY_PORT }}/healthz
+        curl -i http://localhost:${{ env.PROXY_PORT }}/pool
+    - name: Destroy dev
       working-directory: ${{ github.workspace }}
       run: docker compose down -v
