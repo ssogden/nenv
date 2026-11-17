@@ -1,7 +1,8 @@
 FROM node:24
 
 # Create env variable
-ENV environment=default_env_value
+ENV NODE_ENV=default_env_value
+ENV APP_POOL=default_pool_value
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -16,7 +17,7 @@ RUN npm install
 # RUN npm ci --only=production
 
 # Bundle app source
-COPY . .
+COPY ./app .
 
 EXPOSE 8080
-CMD [ "sh", "-c", "node run.js ${environment}" ]
+CMD [ "sh", "-c", "node run.js" ]
