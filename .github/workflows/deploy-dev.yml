@@ -10,13 +10,10 @@ jobs:
     env:
       BLUE_IMAGE: ssogden/nenv:sha-a31b2c4
       GREEN_IMAGE: ssogden/nenv:latest
-      ACTIVE_POOL: green
+      ACTIVE_POOL: blue
       RELEASE_ID_BLUE: foo
       RELEASE_ID_GREEN: bar
-      INTERNAL_PORT: 8080
-      PROXY_PORT: 8000
-      BLUE_PORT: 8081
-      GREEN_PORT: 8082
+      PORT: 8080
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
     - name: create environment file
@@ -27,14 +24,14 @@ jobs:
         echo ACTIVE_POOL=${{ env.ACTIVE_POOL }} >> .env
         echo RELEASE_ID_BLUE=${{ env.RELEASE_ID_BLUE }} >> .env
         echo RELEASE_ID_GREEN=${{ env.RELEASE_ID_GREEN }} >> .env
-        echo INTERNAL_PORT=${{ env.INTERNAL_PORT }} >> .env
-        echo PROXY_PORT=${{ env.PROXY_PORT }} >> .env
-        echo BLUE_PORT=${{ env.BLUE_PORT }} >> .env
-        echo GREEN_PORT=${{ env.GREEN_PORT }} >> .env
+        echo PORT=${{ env.PORT }} >> .env
     - name: Run Docker Container
       working-directory: ${{ github.workspace }}
       run: docker compose up -d
     - name: Health check 
       run: |
-        curl -i http://localhost:${{ env.PROXY_PORT }}/healthz
-        curl -i http://localhost:${{ env.PROXY_PORT }}/pool
+        curl -i http://localhost:${{ env.PORT }}/healthz
+        curl -i http://localhost:${{ env.PORT }}/pool
+    - name: Run Docker Container
+      working-directory: ${{ github.workspace }}
+      run: docker compose down -v
