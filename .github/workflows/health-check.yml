@@ -1,4 +1,4 @@
-name: deploy-dev
+name: health-check
 
 on:
   schedule:
