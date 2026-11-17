@@ -26,8 +26,9 @@ jobs:
         echo RELEASE_ID_GREEN=${{ env.RELEASE_ID_GREEN }} >> .env
         echo PORT=${{ env.PORT }} >> .env
     - name: Run Docker Container
-      working-directory: ${{ github.workspace }}
-      run: docker compose -f ./docker-compose-dev.yml up -d
+      run: docker compose up -d
     - name: Health check 
       run: |
         curl -i http://localhost:${{ env.PROXY }}/healthz
+    - name: Down Dev
+      run: docker compose down -v
