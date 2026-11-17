@@ -5,7 +5,7 @@ on:
     branches: ['main']
 
 jobs:
-  build:
+  deploy:
     runs-on: self-hosted
     env:
       BLUE_IMAGE: ssogden/nenv:sha-a31b2c4
@@ -27,7 +27,10 @@ jobs:
         echo ACTIVE_POOL=${{ env.ACTIVE_POOL }} >> .env
         echo RELEASE_ID_BLUE=${{ env.RELEASE_ID_BLUE }} >> .env
         echo RELEASE_ID_GREEN=${{ env.RELEASE_ID_GREEN }} >> .env
-        echo PORT=${{ env.INTERNAL_PORT }} >> .env
+        echo INTERNAL_PORT=${{ env.INTERNAL_PORT }} >> .env
+        echo PROXY_PORT=${{ env.PROXY_PORT }} >> .env
+        echo BLUE_PORT=${{ env.BLUE_PORT }} >> .env
+        echo GREEN_PORT=${{ env.GREEN_PORT }} >> .env
     - name: Run Docker Container
       working-directory: ${{ github.workspace }}
       run: docker compose up -d
