@@ -17,7 +17,6 @@ jobs:
       RELEASE_ID_BLUE: foo
       RELEASE_ID_GREEN: bar
       PORT: 8080
-      PROXY_PORT: 8001
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
     - name: create environment file
@@ -34,5 +33,5 @@ jobs:
       run: docker compose up -d
     - name: Health check 
       run: |
-        curl -i http://localhost:${{ env.PROXY_PORT }}/healthz
-        curl -i http://localhost:${{ env.PROXY_PORT }}/pool
+        curl -i http://localhost:8000/healthz
+        curl -i http://localhost:8000/pool

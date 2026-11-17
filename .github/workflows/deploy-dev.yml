@@ -13,8 +13,6 @@ jobs:
       ACTIVE_POOL: blue
       RELEASE_ID_BLUE: foo
       RELEASE_ID_GREEN: bar
-      PORT: 8080
-      PROXY_PORT: 8000
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
     - name: Run Docker Container
@@ -28,14 +26,13 @@ jobs:
         echo ACTIVE_POOL=${{ env.ACTIVE_POOL }} >> .env
         echo RELEASE_ID_BLUE=${{ env.RELEASE_ID_BLUE }} >> .env
         echo RELEASE_ID_GREEN=${{ env.RELEASE_ID_GREEN }} >> .env
-        echo PORT=${{ env.PORT }} >> .env
     - name: Run Docker Container
       working-directory: ${{ github.workspace }}
       run: docker compose up -d
     - name: Health check 
       run: |
-        curl -i http://localhost:${{ env.PROXY_PORT }}/healthz
-        curl -i http://localhost:${{ env.PROXY_PORT }}/pool
+        curl -i http://localhost:8000/healthz
+        curl -i http://localhost:8000/pool
     - name: Destroy dev
       working-directory: ${{ github.workspace }}
       run: docker compose down -v
