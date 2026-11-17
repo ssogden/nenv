@@ -10,6 +10,12 @@ services:
       - APP_POOL=blue
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:${PORT:-8080}/healthz || exit 1"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+      start_period: 5s
 
   app_green:
     image: ${GREEN_IMAGE}
@@ -22,6 +28,12 @@ services:
       - APP_POOL=green
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:${PORT:-8080}/healthz || exit 1"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+      start_period: 5s
 
   nginx:
     image: nginx:1.25.3-alpine
