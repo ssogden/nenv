@@ -81,6 +81,16 @@ Find your server's **Public IP Address** and use it in place of `[YOUR_SERVER_IP
 ```sh
 curl -i http://[YOUR_SERVER_IP]:8000/release
 ```
+```sh
+curl -i http://[YOUR_SERVER_IP]:8000/pool
+```
+
+or
+
+```sh
+wget -qO- http://[YOUR_SERVER_IP]:8000/healthz
+```
+
 **Expected Output:** You should see a `200 OK` response, and the headers will include `X-App-Pool: blue`.
 
 ---
@@ -112,4 +122,6 @@ curl -i http://[YOUR_SERVER_IP]:8000/release
 
 ---
 
-### Additional Note
+### Additional Notes
+
+based on yimikaade/wonderful:devops-stage-two
