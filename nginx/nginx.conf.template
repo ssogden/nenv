@@ -1,6 +1,6 @@
 upstream my_app {
-    server app_blue:${PORT}  ${BLUE_STATUS}  max_fails=1 fail_timeout=2s;
-    server app_green:${PORT} ${GREEN_STATUS} max_fails=1 fail_timeout=2s;
+    server app_blue:${INTERNAL_PORT}  ${BLUE_STATUS}  max_fails=1 fail_timeout=2s;
+    server app_green:${INTERNAL_PORT} ${GREEN_STATUS} max_fails=1 fail_timeout=2s;
 }
 
 server {
