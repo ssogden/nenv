@@ -16,6 +16,7 @@ jobs:
       PORT: 8080
       PROXY: 8000
     steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
     - name: Run Docker Container
       run: docker compose down -v
     - name: create environment file
@@ -29,7 +30,5 @@ jobs:
         echo PORT=${{ env.PORT }} >> .env
     - name: Run Docker Container
       run: docker compose up -d --wait --wait-timeout 30
-    - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
-      shell: bash
-    - run: ./scripts/wait-for-healthy-container.sh app_${{ env.ACTIVE_POOL }} 30
-      shell: bash 
+    - run: |
+        ./scripts/wait-for-healthy-container.sh app_${{ env.ACTIVE_POOL }} 30
