@@ -15,7 +15,7 @@ services:
     image: ${GREEN_IMAGE}
     container_name: app_green
     ports:
-      - "8081:${PORT}"
+      - "8082:${PORT}"
     environment:
       - PORT=${PORT}
       - RELEASE_ID=${RELEASE_ID_GREEN}
